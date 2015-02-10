@@ -16,14 +16,14 @@ class HangpersonGame
   def guess(letter)
   	if (letter == nil) or (letter == "") or ((/[[:alpha:]]/ =~ letter) == nil)
   		raise ArgumentError.new("Invalid guess.")
-  	elsif @guesses.include?(letter) or @wrong_guesses.include?(letter)
+  	elsif @guesses.include?(letter.downcase) or @wrong_guesses.include?(letter.downcase)
   		return false
   	else
   		#this is a valid letter
- 		if @word.include?(letter)
- 			@guesses += letter
+ 		if @word.downcase.include?(letter)
+ 			@guesses += letter.downcase
  		else
- 			@wrong_guesses += letter
+ 			@wrong_guesses += letter.downcase
  		end
  		return true
  	end
@@ -31,8 +31,8 @@ class HangpersonGame
   		
   def word_with_guesses
   	result = ""
-  	@word.split("").each do |letter|
-  		if @guesses.include? "#{letter}"
+  	@word.downcase.split("").each do |letter|
+  		if @guesses.downcase.include? "#{letter}"
   			result += "#{letter}"
   		else
   			result += "-"
